@@ -1,11 +1,11 @@
 CC = gcc 
 CFLAGS = -g3 -std=c99 -pedantic -Wall
 
-boggle: boggle.o linkedlist.o hashset.o
+boggle: src/boggle.o src/linkedlist.o src/hashset.o
 	${CC} ${CFLAGS} -o $@ $^
 
-boggle.o: boggle.h linkedlist.o hashset.o
+boggle.o: src/boggle.h linkedlist.o hashset.o
 
-linkedlist.o: linkedlist.h
+linkedlist.o: src/linkedlist.h
 
-hashset.o: hashset.h
+hashset.o: src/hashset.h

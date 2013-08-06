@@ -1,5 +1,7 @@
-Boggle Solver.
+Boggle Solver
+=============
 
 Next Steps:
 * get a boggle dictionary
-* write the main bogglesolver function
+* write a trie data structure
+* finish the main bogglesolver function
