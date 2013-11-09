@@ -6,19 +6,7 @@
    Thomas Weng
 */
 
-#include <stdlib.h>
-#include <stdio.h>
 #include "linkedlist.h"
-
-int main()
-{
-    LinkedList *list;
-    createLinkedList(&list);
-    insertNode(&list, 'a');
-    insertNode(&list, 'h');
-    printf("%s\n", getWord(&list));
-    destroyLinkedList(&list);
-}
 
 bool createLinkedList(LinkedList **list) 
 {
@@ -64,9 +52,9 @@ bool insertNode(LinkedList **list, char letter)
     else
     {
 	int oldLen = strlen(((*list)->tail)->word);
-	new->word = strdup(((*list)->tail)->word);
-	new->word = realloc(new->word, oldLen + sizeof(char) + 1);
+	new->word = malloc(oldLen + sizeof(char) + 1);
 	if (new->word == NULL) return false;
+	strncpy(new->word, ((*list)->tail)->word, oldLen);
 	new->word[oldLen] = letter;
 	new->word[oldLen + 1] = '\0';
     }
@@ -91,4 +79,15 @@ char *getWord(LinkedList **list)
     return (*list)->tail->word;
 }
 
-
+// testing
+/*
+int main()
+{
+    LinkedList *list;
+    createLinkedList(&list);
+    insertNode(&list, 'a');
+    insertNode(&list, 'h');
+    printf("%s\n", getWord(&list));
+    destroyLinkedList(&list);
+}
+*/

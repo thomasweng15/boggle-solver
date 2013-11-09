@@ -2,6 +2,6 @@ Boggle Solver
 =============
 
 Next Steps:
-* review linkedlist implementation
+* review hashset implementation
 * finish the main bogglesolver function
 * write a trie data structure
