@@ -9,8 +9,6 @@
 #include <stdbool.h>
 #include <string.h>
 
-typedef struct lnode *LNode;
-
 struct lnode 
 {
     char *word;
@@ -23,9 +21,8 @@ typedef struct linkedlist
     struct lnode *tail;
 } LinkedList;
 
-void createLinkedList(LinkedList **list);
-void insertNode(LinkedList **list, char *letter);
-bool deleteLastNode(LinkedList **list);
-void destroyLinkedList(LinkedList **list);
+bool createLinkedList(LinkedList **list);
+bool destroyLinkedList(LinkedList **list);
+
+bool insertNode(LinkedList **list, char letter);
 char *getWord(LinkedList **list);
-// searchNode
