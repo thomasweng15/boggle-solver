@@ -5,6 +5,7 @@
 #include <string.h>
 #include "linkedlist.h"
 #include "hashset.h"
+#include "dict.h"
 
 int SIZE = 4; // size of board
 
@@ -31,10 +32,15 @@ int main()
     // initialize data structures
     LinkedList* LL;
     HashSet* visitedCoords;
+    Trie *dict;
     createLinkedList(&LL);
     createHashSet(&visitedCoords);
+    createTrie(&dict);
 
     //solveBoggle(&LL, 0, 0, &visitedCoords);
+
+    // cleanup
+    free(dict);
 }
 
 bool initBoard(char ***b) 
