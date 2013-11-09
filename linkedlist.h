@@ -9,23 +9,23 @@
 #include <stdbool.h>
 #include <string.h>
 
-typedef struct node Node;
+typedef struct lnode *LNode;
 
-struct node 
+struct lnode 
 {
     char *word;
-    Node *next;
+    struct lnode *next;
 };
 
 typedef struct linkedlist
 {
-    Node *head;
-    Node *tail;
+    struct lnode *head;
+    struct lnode *tail;
 } LinkedList;
 
-void createLinkedList(LinkedList **LL);
-void insertNode(LinkedList **LL, char *letter);
-bool deleteLastNode(LinkedList **LL);
-void destroyLinkedList(LinkedList **LL);
-char *getWord(LinkedList **LL);
+void createLinkedList(LinkedList **list);
+void insertNode(LinkedList **list, char *letter);
+bool deleteLastNode(LinkedList **list);
+void destroyLinkedList(LinkedList **list);
+char *getWord(LinkedList **list);
 // searchNode

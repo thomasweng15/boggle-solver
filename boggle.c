@@ -1,13 +1,14 @@
-// Boggle Solver
+/*
+    boggle.c
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "linkedlist.h"
-#include "hashset.h"
+    Main source file for boggle solver.
+
+    Thomas Weng
+*/
+
+#include "boggle.h"
 
 int SIZE = 4; // size of board
-
 
 int main() 
 {
@@ -27,9 +28,9 @@ int main()
     }
 
     // initialize data structures
-    LinkedList *LL;
+    LinkedList *list;
     HashSet *visitedCoords;
-    createLinkedList(&LL);
+    createLinkedList(&list);
     createHashSet(&visitedCoords);
 
     //solveBoggle(&LL, 0, 0, &visitedCoords);
@@ -92,7 +93,7 @@ bool readBoard(char ***b)
 }
 
 /*
-void solveBoggle(LinkedList **LL, int x, int y, HashSet **visitedCoords)
+void solveBoggle(LinkedList **list, int x, int y, HashSet **visitedCoords)
 {
     // if coordinates are out of range, stop
     if (x < 0 || y < 0 || x > 4 || y > 4)
@@ -107,10 +108,10 @@ void solveBoggle(LinkedList **LL, int x, int y, HashSet **visitedCoords)
     }
 
     // insert letter at position into LinkedList
-    insertNode(LL, board[x][y]);
+    insertNode(list, board[x][y]);
 
     // if new word is not a word or prefix to word, stop
-    char *word = getWord(LL);
+    char *word = getWord(list);
     //
     // otherwise, add coordinates to hashset
     insertHashValue(visitedCoords, x, y);

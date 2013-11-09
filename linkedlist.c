@@ -11,55 +11,55 @@
 #include "linkedlist.h"
 
 
-void createLinkedList(LinkedList **LL) 
+void createLinkedList(LinkedList **list) 
 {
-    *LL = malloc(sizeof(LinkedList));
-    (*LL)->head = NULL;
-    (*LL)->tail = NULL;
+    *list = malloc(sizeof(LinkedList));
+    (*list)->head = NULL;
+    (*list)->tail = NULL;
 }
 
-void insertNode(LinkedList **LL, char *letter)
+void insertNode(LinkedList **list, char *letter)
 {
-    Node *current;
-    current = malloc(sizeof(Node));
+    struct lnode *current;
+    current = malloc(sizeof(struct lnode));
     current->next = NULL;
-    if ((*LL)->tail == NULL) 
+    if ((*list)->tail == NULL) 
     {
     	current->word = malloc(strlen(letter) + 1);
     	strcpy(current->word, letter);
     }
     else 
     {	
-    	current->word = malloc(strlen((*LL)->tail->word) + 1);
-    	strcpy(current->word, (*LL)->tail->word);
+    	current->word = malloc(strlen((*list)->tail->word) + 1);
+    	strcpy(current->word, (*list)->tail->word);
     	strcpy(current->word + strlen(current->word), letter);
     }	
 	
     // if this is the first node added to the list, set head to node
-    if ((*LL)->head == NULL) 
+    if ((*list)->head == NULL) 
     {
-    	(*LL)->head = current;
-    	(*LL)->tail = current;
+    	(*list)->head = current;
+    	(*list)->tail = current;
     } 
     // otherwise, iterate through list and append to last node.
     else 
     {
-    	Node *index;
-    	index = (*LL)->head;
+    	struct lnode *index;
+    	index = (*list)->head;
     	while (index->next)
     	{
 	    index = index->next;
     	}
     	index->next = current;
-    	(*LL)->tail = current;
+    	(*list)->tail = current;
     }
 }
 
-bool deleteLastNode(LinkedList **LL)
+bool deleteLastNode(LinkedList **list)
 {
-    Node *current;
-    Node *previous;
-    current = (*LL)->head;
+    struct lnode *current;
+    struct lnode *previous;
+    current = (*list)->head;
     previous = NULL;
 
     if (current == NULL)
@@ -78,34 +78,34 @@ bool deleteLastNode(LinkedList **LL)
     if (previous != NULL)
     {
 	previous->next = NULL;
-	(*LL)->tail = previous;
+	(*list)->tail = previous;
     }
     // if last node is the first node, reset tail pointer
     else 
     {
-	(*LL)->head = NULL;
-	(*LL)->tail = NULL;
+	(*list)->head = NULL;
+	(*list)->tail = NULL;
     }
     return true;
 }
 
-void destroyLinkedList(LinkedList **LL)
+void destroyLinkedList(LinkedList **list)
 {
     while (1)
     {
-	if ((*LL)->head == NULL)
+	if ((*list)->head == NULL)
 	{
 	    break;
 	}
-	deleteLastNode(LL);
+	deleteLastNode(list);
     }
-    free(*LL);
-    *LL = NULL;
+    free(*list);
+    *list = NULL;
 }
 
-char *getWord(LinkedList **LL)
+char *getWord(LinkedList **list)
 {
-    return (*LL)->tail->word;
+    return (*list)->tail->word;
 }
 
 
