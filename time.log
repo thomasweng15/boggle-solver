@@ -1,0 +1,13 @@
+Boggle Solver
+Time log to keep track of my work.
+Thomas Weng
+
+Date	Time	Spent	Work completed
+----	----	-----	--------------
+09/25	13:00	0.5	Initialized repository, wrote Makefile, scaffolded
+11/08	19:00	1.0	initBoard() and readBoard() 
+			took longer than expected because of 2D array syntax.
+		-----
+		1.5	Total time spent
+
+
