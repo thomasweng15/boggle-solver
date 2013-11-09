@@ -29,16 +29,20 @@ int main()
 
     // initialize data structures
     LinkedList *list;
-    HashSet *visitedCoords;
     createLinkedList(&list);
-    createHashSet(&visitedCoords);
+    //HashSet *visitedCoords;
+    //createHashSet(&visitedCoords);
 
     //solveBoggle(&LL, 0, 0, &visitedCoords);
+
+    // cleanup
+    destroyLinkedList(&list); 
+    freeBoard(&board);
 }
 
-bool initBoard(char ***b) 
+bool initBoard(char ***bptr) 
 {
-    char **board = *b;
+    char **board = *bptr;
 
     // initialize char * array
     board = malloc(SIZE * sizeof(char *));
@@ -58,13 +62,13 @@ bool initBoard(char ***b)
 	}
     }
 
-    *b = board;
+    *bptr = board;
     return true;
 }
 
-bool readBoard(char ***b)
+bool readBoard(char ***bptr)
 {
-    char **board = *b;
+    char **board = *bptr;
 
     // read from stdin and store characters in board until EOF
     char c;
@@ -88,8 +92,26 @@ bool readBoard(char ***b)
 	}
     }
 
-    *b = board;
+    *bptr = board;
     return true;         
+}
+
+bool freeBoard(char ***bptr)
+{
+    char **board = *bptr;
+
+    // free every char * array in the char ** array
+    for (int i = 0; i < SIZE; i++)
+    {
+	free(board[i]);
+	board[i] = NULL;
+    }
+
+    // free the char ** array
+    free(board);
+    board = NULL;
+    *bptr = board;
+    return true;
 }
 
 /*

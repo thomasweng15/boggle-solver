@@ -13,6 +13,7 @@
 #include "linkedlist.h"
 #include "hashset.h"
 
-bool initBoard(char ***b);
-bool readBoard(char ***b);
+bool initBoard(char ***bptr);
+bool readBoard(char ***bptr);
+bool freeBoard(char ***bptr);
 void solveBoggle(LinkedList **LL, int x, int y, HashSet **HS);
