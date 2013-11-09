@@ -18,8 +18,8 @@ struct hashset
 
 // TODO linear chaining
 int hashFunc(int x, int y);
-void createHashSet(HashSet** HS);
-bool lookUpHashValue(HashSet** HS, int index);
-bool insertHashValue(HashSet** HS, int x, int y);
-bool removeHashValue(HashSet** HS, int x, int y);
-//void destroyHashSet(HashSet** HS);
+void createHashSet(HashSet **HS);
+bool lookUpHashValue(HashSet **HS, int index);
+bool insertHashValue(HashSet **HS, int x, int y);
+bool removeHashValue(HashSet **HS, int x, int y);
+//void destroyHashSet(HashSet **HS);

@@ -11,17 +11,17 @@
 #include "linkedlist.h"
 
 
-void createLinkedList(LinkedList** LL) 
+void createLinkedList(LinkedList **LL) 
 {
-    *LL = (LinkedList *) malloc(sizeof(LinkedList));
+    *LL = malloc(sizeof(LinkedList));
     (*LL)->head = NULL;
     (*LL)->tail = NULL;
 }
 
-void insertNode(LinkedList** LL, char* letter)
+void insertNode(LinkedList **LL, char *letter)
 {
-    Node* current;
-    current = (Node *) malloc(sizeof(Node));
+    Node *current;
+    current = malloc(sizeof(Node));
     current->next = NULL;
     if ((*LL)->tail == NULL) 
     {
@@ -44,7 +44,7 @@ void insertNode(LinkedList** LL, char* letter)
     // otherwise, iterate through list and append to last node.
     else 
     {
-    	Node* index;
+    	Node *index;
     	index = (*LL)->head;
     	while (index->next)
     	{
@@ -55,10 +55,10 @@ void insertNode(LinkedList** LL, char* letter)
     }
 }
 
-bool deleteLastNode(LinkedList** LL)
+bool deleteLastNode(LinkedList **LL)
 {
-    Node* current;
-    Node* previous;
+    Node *current;
+    Node *previous;
     current = (*LL)->head;
     previous = NULL;
 
@@ -89,7 +89,7 @@ bool deleteLastNode(LinkedList** LL)
     return true;
 }
 
-void destroyLinkedList(LinkedList** LL)
+void destroyLinkedList(LinkedList **LL)
 {
     while (1)
     {
@@ -103,7 +103,7 @@ void destroyLinkedList(LinkedList** LL)
     *LL = NULL;
 }
 
-char* getWord(LinkedList** LL)
+char *getWord(LinkedList **LL)
 {
     return (*LL)->tail->word;
 }

@@ -8,8 +8,6 @@
 
 int SIZE = 4; // size of board
 
-bool initBoard(char ***b);
-bool readBoard(char ***b);
 
 int main() 
 {
@@ -29,8 +27,8 @@ int main()
     }
 
     // initialize data structures
-    LinkedList* LL;
-    HashSet* visitedCoords;
+    LinkedList *LL;
+    HashSet *visitedCoords;
     createLinkedList(&LL);
     createHashSet(&visitedCoords);
 
@@ -94,7 +92,7 @@ bool readBoard(char ***b)
 }
 
 /*
-void solveBoggle(LinkedList** LL, int x, int y, HashSet** visitedCoords)
+void solveBoggle(LinkedList **LL, int x, int y, HashSet **visitedCoords)
 {
     // if coordinates are out of range, stop
     if (x < 0 || y < 0 || x > 4 || y > 4)
@@ -112,7 +110,7 @@ void solveBoggle(LinkedList** LL, int x, int y, HashSet** visitedCoords)
     insertNode(LL, board[x][y]);
 
     // if new word is not a word or prefix to word, stop
-    char* word = getWord(LL);
+    char *word = getWord(LL);
     //
     // otherwise, add coordinates to hashset
     insertHashValue(visitedCoords, x, y);

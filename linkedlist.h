@@ -13,19 +13,19 @@ typedef struct node Node;
 
 struct node 
 {
-    char* word;
-    Node* next;
+    char *word;
+    Node *next;
 };
 
 typedef struct linkedlist
 {
-    Node* head;
-    Node* tail;
+    Node *head;
+    Node *tail;
 } LinkedList;
 
-void createLinkedList(LinkedList** LL);
-void insertNode(LinkedList** LL, char* letter);
-bool deleteLastNode(LinkedList** LL);
-void destroyLinkedList(LinkedList** LL);
-char* getWord(LinkedList** LL);
+void createLinkedList(LinkedList **LL);
+void insertNode(LinkedList **LL, char *letter);
+bool deleteLastNode(LinkedList **LL);
+void destroyLinkedList(LinkedList **LL);
+char *getWord(LinkedList **LL);
 // searchNode

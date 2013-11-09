@@ -14,16 +14,16 @@ int hashFunc(int x, int y)
     return 5*y + x;
 } 
 
-void createHashSet(HashSet** HS)
+void createHashSet(HashSet **HS)
 {
-    *HS = (HashSet *) malloc(sizeof(HashSet));
+    *HS = malloc(sizeof(HashSet));
     for (int i = 0; i < 25; i++) 
     {
 	(*HS)->arr[i] = 0;
     }
 }
 
-bool lookUpHashValue(HashSet** HS, int index)
+bool lookUpHashValue(HashSet **HS, int index)
 {
     if ((*HS)->arr[index]) 
     {
@@ -36,7 +36,7 @@ bool lookUpHashValue(HashSet** HS, int index)
     }
 }
 
-bool insertHashValue(HashSet** HS, int x, int y)
+bool insertHashValue(HashSet **HS, int x, int y)
 {
     int index = hashFunc(x, y);
     if (!lookUpHashValue(HS, index))
@@ -51,7 +51,7 @@ bool insertHashValue(HashSet** HS, int x, int y)
     }
 }
 
-bool removeHashValue(HashSet** HS, int x, int y)
+bool removeHashValue(HashSet **HS, int x, int y)
 {
     int index = hashFunc(x, y);
     if (lookUpHashValue(HS, index))
