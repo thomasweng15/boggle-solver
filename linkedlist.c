@@ -1,103 +1,111 @@
+/*
+   linkedlist.c
+
+   Source files for linkedlist data structure for boggle.
+
+   Thomas Weng
+*/
+
 #include <stdlib.h>
 #include <stdio.h>
 #include "linkedlist.h"
 
 
-void createLinkedList(LinkedList** LL) 
+void createLinkedList(LinkedList **list) 
 {
-	*LL = (LinkedList *) malloc(sizeof(LinkedList));
-	(*LL)->head = NULL;
-	(*LL)->tail = NULL;
+    *list = malloc(sizeof(LinkedList));
+    (*list)->head = NULL;
+    (*list)->tail = NULL;
 }
 
-void insertNode(LinkedList** LL, char* letter)
+void insertNode(LinkedList **list, char *letter)
 {
-	Node* current;
-	current = (Node *) malloc(sizeof(Node));
-	current->next = NULL;
-	if ((*LL)->tail == NULL) 
-	{
-		current->word = malloc(strlen(letter) + 1);
-		strcpy(current->word, letter);
-	}
-	else 
-	{	
-		current->word = malloc(strlen((*LL)->tail->word) + 1);
-		strcpy(current->word, (*LL)->tail->word);
-		strcpy(current->word + strlen(current->word), letter);
-	}	
+    struct lnode *current;
+    current = malloc(sizeof(struct lnode));
+    current->next = NULL;
+    if ((*list)->tail == NULL) 
+    {
+    	current->word = malloc(strlen(letter) + 1);
+    	strcpy(current->word, letter);
+    }
+    else 
+    {	
+    	current->word = malloc(strlen((*list)->tail->word) + 1);
+    	strcpy(current->word, (*list)->tail->word);
+    	strcpy(current->word + strlen(current->word), letter);
+    }	
 	
-	// if this is the first node added to the list, set head to node
-	if ((*LL)->head == NULL) 
-	{
-		(*LL)->head = current;
-		(*LL)->tail = current;
-	} 
-	// otherwise, iterate through list and append to last node.
-	else 
-	{
-		Node* index;
-		index = (*LL)->head;
-		while (index->next)
-		{
-			index = index->next;
-		}
-		index->next = current;
-		(*LL)->tail = current;
-	}
+    // if this is the first node added to the list, set head to node
+    if ((*list)->head == NULL) 
+    {
+    	(*list)->head = current;
+    	(*list)->tail = current;
+    } 
+    // otherwise, iterate through list and append to last node.
+    else 
+    {
+    	struct lnode *index;
+    	index = (*list)->head;
+    	while (index->next)
+    	{
+	    index = index->next;
+    	}
+    	index->next = current;
+    	(*list)->tail = current;
+    }
 }
 
-bool deleteLastNode(LinkedList** LL)
+bool deleteLastNode(LinkedList **list)
 {
-	Node* current;
-	Node* previous;
-	current = (*LL)->head;
-	previous = NULL;
+    struct lnode *current;
+    struct lnode *previous;
+    current = (*list)->head;
+    previous = NULL;
 
-	if (current == NULL)
-	{
-		return false;
-	}
+    if (current == NULL)
+    {
+	return false;
+    }
 
-	while (current->next)
-	{
-		previous = current;
-		current = current->next;
-	}
-	free(current);
+    while (current->next)
+    {
+	previous = current;
+	current = current->next;
+    }
+    free(current);
 
-	// if last node is not the first node, update pointers
-	if (previous != NULL)
-	{
-		previous->next = NULL;
-		(*LL)->tail = previous;
-	}
-	// if last node is the first node, reset tail pointer
-	else 
-	{
-		(*LL)->head = NULL;
-		(*LL)->tail = NULL;
-	}
-	return true;
+    // if last node is not the first node, update pointers
+    if (previous != NULL)
+    {
+	previous->next = NULL;
+	(*list)->tail = previous;
+    }
+    // if last node is the first node, reset tail pointer
+    else 
+    {
+	(*list)->head = NULL;
+	(*list)->tail = NULL;
+    }
+    return true;
 }
 
-void destroyLinkedList(LinkedList** LL)
+void destroyLinkedList(LinkedList **list)
 {
-	while (1)
+    while (1)
+    {
+	if ((*list)->head == NULL)
 	{
-		if ((*LL)->head == NULL)
-		{
-			break;
-		}
-		deleteLastNode(LL);
+	    break;
 	}
-	free(*LL);
-	*LL = NULL;
+	deleteLastNode(list);
+    }
+    free(*list);
+    *list = NULL;
 }
 
-char* getWord(LinkedList** LL)
+char *getWord(LinkedList **list)
 {
-	return (*LL)->tail->word;
+    return (*list)->tail->word;
 }
 
 

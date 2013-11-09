@@ -1,16 +1,14 @@
-// Boggle Solver
+/*
+    boggle.c
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "linkedlist.h"
-#include "hashset.h"
-#include "dict.h"
+    Main source file for boggle solver.
+
+    Thomas Weng
+*/
+
+#include "boggle.h"
 
 int SIZE = 4; // size of board
-
-bool initBoard(char ***b);
-bool readBoard(char ***b);
 
 int main() 
 {
@@ -30,22 +28,24 @@ int main()
     }
 
     // initialize data structures
-    LinkedList* LL;
-    HashSet* visitedCoords;
+    LinkedList *list;
+    createLinkedList(&list);
     Trie *dict;
-    createLinkedList(&LL);
-    createHashSet(&visitedCoords);
     createTrie(&dict);
+    //HashSet *visitedCoords;
+    //createHashSet(&visitedCoords);
 
     //solveBoggle(&LL, 0, 0, &visitedCoords);
 
     // cleanup
     free(dict);
+    destroyLinkedList(&list); 
+    freeBoard(&board);
 }
 
-bool initBoard(char ***b) 
+bool initBoard(char ***bptr) 
 {
-    char **board = *b;
+    char **board = *bptr;
 
     // initialize char * array
     board = malloc(SIZE * sizeof(char *));
@@ -65,13 +65,13 @@ bool initBoard(char ***b)
 	}
     }
 
-    *b = board;
+    *bptr = board;
     return true;
 }
 
-bool readBoard(char ***b)
+bool readBoard(char ***bptr)
 {
-    char **board = *b;
+    char **board = *bptr;
 
     // read from stdin and store characters in board until EOF
     char c;
@@ -95,12 +95,30 @@ bool readBoard(char ***b)
 	}
     }
 
-    *b = board;
+    *bptr = board;
     return true;         
 }
 
+bool freeBoard(char ***bptr)
+{
+    char **board = *bptr;
+
+    // free every char * array in the char ** array
+    for (int i = 0; i < SIZE; i++)
+    {
+	free(board[i]);
+	board[i] = NULL;
+    }
+
+    // free the char ** array
+    free(board);
+    board = NULL;
+    *bptr = board;
+    return true;
+}
+
 /*
-void solveBoggle(LinkedList** LL, int x, int y, HashSet** visitedCoords)
+void solveBoggle(LinkedList **list, int x, int y, HashSet **visitedCoords)
 {
     // if coordinates are out of range, stop
     if (x < 0 || y < 0 || x > 4 || y > 4)
@@ -115,10 +133,10 @@ void solveBoggle(LinkedList** LL, int x, int y, HashSet** visitedCoords)
     }
 
     // insert letter at position into LinkedList
-    insertNode(LL, board[x][y]);
+    insertNode(list, board[x][y]);
 
     // if new word is not a word or prefix to word, stop
-    char* word = getWord(LL);
+    char *word = getWord(list);
     //
     // otherwise, add coordinates to hashset
     insertHashValue(visitedCoords, x, y);
