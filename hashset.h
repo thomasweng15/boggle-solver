@@ -1,4 +1,11 @@
-// ADT for hashset.
+/*
+    hashset.h
+
+    header files for the hashset data structure for boggle.
+
+    Thomas Weng
+*/
+
 #include <stdbool.h>
 
 typedef struct hashset HashSet;
@@ -6,7 +13,7 @@ typedef struct hashset HashSet;
 // TODO make variable
 struct hashset
 {
-	int arr[25];
+    int arr[25];
 };
 
 // TODO linear chaining
