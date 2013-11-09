@@ -2,6 +2,6 @@ Boggle Solver
 =============
 
 Next Steps:
-* get a boggle dictionary
-* write a trie data structure
+* review linkedlist implementation
 * finish the main bogglesolver function
+* write a trie data structure
