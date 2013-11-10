@@ -15,7 +15,7 @@ typedef struct hashset
     bool *arr;
 } HashSet;
 
-bool updateSize(int size);
+bool updateSize(int width);
 int hash(int x, int y);
 
 bool createHashSet(HashSet **hs);

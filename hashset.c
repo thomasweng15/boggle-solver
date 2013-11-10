@@ -8,36 +8,24 @@
 
 #include "hashset.h"
 
-int SIZE = 4;
+int WIDTH = 4;
 
-int main()
+bool updateSize(int width)
 {
-    HashSet *hs;
-    createHashSet(&hs);
-    updateHashVal(&hs, 1, 1);
-    if (lookUpHashVal(&hs, 1, 1))
-    {
-	printf("YES\n");
-    }
-    destroyHashSet(&hs);
-}
-
-bool updateSize(int size)
-{
-    SIZE = size;
+    WIDTH = width;
     return true;
 }
 
 int hash(int x, int y)
 {
-    return SIZE*x + y; // only works for size < 10
+    return WIDTH*x + y; // note: only works for size < 10
 } 
 
 bool createHashSet(HashSet **hs)
 {
     *hs = malloc(sizeof(struct hashset));
     if (*hs == NULL) return false;
-    (*hs)->arr = calloc(SIZE*SIZE, sizeof(bool));
+    (*hs)->arr = calloc(WIDTH*WIDTH, sizeof(bool));
     if ((*hs)->arr == NULL) return false;
     return true;
 }
@@ -68,3 +56,17 @@ bool updateHashVal(HashSet **hs, int x, int y)
     }
 }
 
+// testing
+/*
+int main()
+{
+    HashSet *hs;
+    createHashSet(&hs);
+    updateHashVal(&hs, 1, 1);
+    if (lookUpHashVal(&hs, 1, 1))
+    {
+	printf("YES\n");
+    }
+    destroyHashSet(&hs);
+}
+*/
