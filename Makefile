@@ -1,7 +1,7 @@
 CC = gcc 
 CFLAGS = -g3 -std=c99 -pedantic -Wall
 
-All: boggle 
+All: hashset 
 
 boggle: boggle.o linkedlist.o hashset.o
 	${CC} ${CFLAGS} -o $@ $^
@@ -15,5 +15,8 @@ hashset.o: hashset.h
 
 ### testing
 linkedlist: linkedlist.c
-	${CC} -o $@ $^
+	${CC} ${CFLAGS} -o $@ $^
+
+hashset: hashset.c
+	${CC} ${CFLAGS} -o $@ $^
 

@@ -7,18 +7,19 @@
 */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <stdbool.h>
 
-// TODO make variable
 typedef struct hashset
 {
-    int arr[25];
+    bool *arr;
 } HashSet;
 
-// TODO linear chaining
-int hashFunc(int x, int y);
-void createHashSet(HashSet **hs);
-bool lookUpHashValue(HashSet **hs, int index);
-bool insertHashValue(HashSet **hs, int x, int y);
-bool removeHashValue(HashSet **hs, int x, int y);
-//void destroyHashSet(HashSet **hs);
+bool updateSize(int size);
+int hash(int x, int y);
+
+bool createHashSet(HashSet **hs);
+bool destroyHashSet(HashSet **hs);
+
+bool lookUpHashVal(HashSet **hs, int x, int y);
+bool updateHashVal(HashSet **hs, int x, int y);

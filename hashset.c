@@ -8,64 +8,63 @@
 
 #include "hashset.h"
 
-int hashFunc(int x, int y)
+int SIZE = 4;
+
+int main()
 {
-    return 5*y + x;
+    HashSet *hs;
+    createHashSet(&hs);
+    updateHashVal(&hs, 1, 1);
+    if (lookUpHashVal(&hs, 1, 1))
+    {
+	printf("YES\n");
+    }
+    destroyHashSet(&hs);
+}
+
+bool updateSize(int size)
+{
+    SIZE = size;
+    return true;
+}
+
+int hash(int x, int y)
+{
+    return SIZE*x + y; // only works for size < 10
 } 
 
-void createHashSet(HashSet **hs)
+bool createHashSet(HashSet **hs)
 {
-    *hs = malloc(sizeof(HashSet));
-    for (int i = 0; i < 25; i++) 
-    {
-	(*hs)->arr[i] = 0;
-    }
+    *hs = malloc(sizeof(struct hashset));
+    if (*hs == NULL) return false;
+    (*hs)->arr = calloc(SIZE*SIZE, sizeof(bool));
+    if ((*hs)->arr == NULL) return false;
+    return true;
 }
 
-bool lookUpHashValue(HashSet **hs, int index)
+bool destroyHashSet(HashSet **hs)
 {
-    if ((*hs)->arr[index]) 
-    {
-	return true;
-    } 
-    // if value is already in hash set, 
-    else 
-    {
-	return false;
-    }
+    free((*hs)->arr);
+    free(*hs);
+    return true;
 }
 
-bool insertHashValue(HashSet **hs, int x, int y)
+bool lookUpHashVal(HashSet **hs, int x, int y)
 {
-    int index = hashFunc(x, y);
-    if (!lookUpHashValue(hs, index))
+    return (*hs)->arr[hash(x, y)];
+}
+
+bool updateHashVal(HashSet **hs, int x, int y)
+{
+    if ((*hs)->arr[hash(x,y)] == false)
     {
-	(*hs)->arr[index] = 1;
+	(*hs)->arr[hash(x,y)] = true;
 	return true;
-    }
-    // if value is already in hash set, do not insert
+    }	
     else
     {
+	fprintf(stderr, "hashset: already has value\n");
 	return false;
     }
 }
 
-bool removeHashValue(HashSet **hs, int x, int y)
-{
-    int index = hashFunc(x, y);
-    if (lookUpHashValue(hs, index))
-    {
-	(*hs)->arr[index] = 0;
-	return true;
-    }
-    // if value is not in hash set, nothing to remove
-    else
-    {
-	return false;
-    }
-}
-
-/*void destroyHashSet(HashSet **hs)
-{
-
-}*/
