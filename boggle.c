@@ -32,14 +32,15 @@ int main()
     createLinkedList(&list);
     Trie *dict;
     createTrie(&dict);
-    //HashSet *visitedCoords;
-    //createHashSet(&visitedCoords);
+    HashSet *visited;
+    createHashSet(&visited);
 
-    //solveBoggle(&LL, 0, 0, &visitedCoords);
+    //solveBoggle(&LL, 0, 0, &visited);
 
     // cleanup
     free(dict);
     destroyLinkedList(&list); 
+    destroyHashSet(&visited);
     freeBoard(&board);
 }
 
@@ -118,7 +119,7 @@ bool freeBoard(char ***bptr)
 }
 
 /*
-void solveBoggle(LinkedList **list, int x, int y, HashSet **visitedCoords)
+void solveBoggle(LinkedList **list, int x, int y, HashSet **visited)
 {
     // if coordinates are out of range, stop
     if (x < 0 || y < 0 || x > 4 || y > 4)
@@ -127,7 +128,7 @@ void solveBoggle(LinkedList **list, int x, int y, HashSet **visitedCoords)
     }
 
     // if coordinates are already in HashSet, stop
-    if (lookUpHashValue(visitedCoords, hashFunc(x, y)))
+    if (lookUpHashValue(visited, hashFunc(x, y)))
     {
     	return;
     }
@@ -139,7 +140,7 @@ void solveBoggle(LinkedList **list, int x, int y, HashSet **visitedCoords)
     char *word = getWord(list);
     //
     // otherwise, add coordinates to hashset
-    insertHashValue(visitedCoords, x, y);
+    insertHashValue(visited, x, y);
 
     // call solveboard in every direction (except nonvalid?)
 }

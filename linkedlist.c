@@ -6,101 +6,72 @@
    Thomas Weng
 */
 
-#include <stdlib.h>
-#include <stdio.h>
 #include "linkedlist.h"
 
-
-void createLinkedList(LinkedList **list) 
+bool createLinkedList(LinkedList **list) 
 {
     *list = malloc(sizeof(LinkedList));
+    if (*list == NULL) return false;
     (*list)->head = NULL;
     (*list)->tail = NULL;
-}
-
-void insertNode(LinkedList **list, char *letter)
-{
-    struct lnode *current;
-    current = malloc(sizeof(struct lnode));
-    current->next = NULL;
-    if ((*list)->tail == NULL) 
-    {
-    	current->word = malloc(strlen(letter) + 1);
-    	strcpy(current->word, letter);
-    }
-    else 
-    {	
-    	current->word = malloc(strlen((*list)->tail->word) + 1);
-    	strcpy(current->word, (*list)->tail->word);
-    	strcpy(current->word + strlen(current->word), letter);
-    }	
-	
-    // if this is the first node added to the list, set head to node
-    if ((*list)->head == NULL) 
-    {
-    	(*list)->head = current;
-    	(*list)->tail = current;
-    } 
-    // otherwise, iterate through list and append to last node.
-    else 
-    {
-    	struct lnode *index;
-    	index = (*list)->head;
-    	while (index->next)
-    	{
-	    index = index->next;
-    	}
-    	index->next = current;
-    	(*list)->tail = current;
-    }
-}
-
-bool deleteLastNode(LinkedList **list)
-{
-    struct lnode *current;
-    struct lnode *previous;
-    current = (*list)->head;
-    previous = NULL;
-
-    if (current == NULL)
-    {
-	return false;
-    }
-
-    while (current->next)
-    {
-	previous = current;
-	current = current->next;
-    }
-    free(current);
-
-    // if last node is not the first node, update pointers
-    if (previous != NULL)
-    {
-	previous->next = NULL;
-	(*list)->tail = previous;
-    }
-    // if last node is the first node, reset tail pointer
-    else 
-    {
-	(*list)->head = NULL;
-	(*list)->tail = NULL;
-    }
     return true;
 }
 
-void destroyLinkedList(LinkedList **list)
+bool destroyLinkedList(LinkedList **list)
 {
-    while (1)
+    struct lnode *curr, *prev;
+    curr = (*list)->head;
+    while (curr != NULL)
     {
-	if ((*list)->head == NULL)
-	{
-	    break;
-	}
-	deleteLastNode(list);
+	free(curr->word);
+	prev = curr;
+	curr = curr->next;	
+	free(prev);
     }
     free(*list);
     *list = NULL;
+    return true;
+}
+
+bool insertNode(LinkedList **list, char letter)
+{
+    // create new lnode
+    struct lnode *new;
+    new = malloc(sizeof(struct lnode));
+    if (new == NULL) return false;
+    new->next = NULL;
+
+    // make word for lnode
+    if ((*list)->tail == NULL)
+    {
+	new->word = malloc(sizeof(char) + 1);
+	if (new->word == NULL) return false;
+	new->word[0] = letter;
+	new->word[1] = '\0';
+    }
+    else
+    {
+	int oldLen = strlen(((*list)->tail)->word);
+	new->word = malloc(oldLen + sizeof(char) + 1);
+	if (new->word == NULL) return false;
+	strncpy(new->word, ((*list)->tail)->word, oldLen);
+	new->word[oldLen] = letter;
+	new->word[oldLen + 1] = '\0';
+    }
+
+    // insert new node into list
+    if ((*list)->tail != NULL) 
+    {
+	((*list)->tail)->next = new;
+    }
+    // if tail node is NULL, we are inserting into an empty list
+    else
+    {
+	(*list)->head = new;
+    }
+    (*list)->tail = new;
+    
+    return true;
 }
 
 char *getWord(LinkedList **list)
@@ -108,4 +79,15 @@ char *getWord(LinkedList **list)
     return (*list)->tail->word;
 }
 
-
+// testing
+/*
+int main()
+{
+    LinkedList *list;
+    createLinkedList(&list);
+    insertNode(&list, 'a');
+    insertNode(&list, 'h');
+    printf("%s\n", getWord(&list));
+    destroyLinkedList(&list);
+}
+*/

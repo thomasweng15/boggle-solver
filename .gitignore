@@ -1,2 +1,5 @@
 *.o
+*.out
 boggle
+linkedlist
+hashset
