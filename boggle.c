@@ -38,7 +38,7 @@ int main()
     //solveBoggle(&LL, 0, 0, &visited);
 
     // cleanup
-    free(dict);
+    destroyTrie(&dict);
     destroyLinkedList(&list); 
     destroyHashSet(&visited);
     freeBoard(&board);

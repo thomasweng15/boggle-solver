@@ -8,17 +8,26 @@
 
 #include "dict.h"
 
+// testing 
+int main()
+{
+    Trie *dict;
+    createTrie(&dict);
+    destroyTrie(&dict);
+    return true;
+}
+
 bool createTrie(Trie **dict)
 {
     *dict = malloc(sizeof(Trie));
-    if (!dict) return false;
+    if (*dict == NULL) return false;
     (*dict)->children = NULL;
     return true;
 }
 
 bool destroyTrie(Trie **dict)
 {
-    free(dict);
+    free(*dict);
     return true;
 }
 

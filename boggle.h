@@ -12,6 +12,7 @@
 #include <stdbool.h>
 #include "linkedlist.h"
 #include "hashset.h"
+#include "dict.h"
 
 bool initBoard(char ***bptr);
 bool readBoard(char ***bptr);
