@@ -6,25 +6,27 @@
    Thomas Weng
 */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
+// index of node indicates character
 struct tnode
 {
-    char letter;	    // letter stored at node
-    bool isWord;	    // true if tree from root to node is a word 
-    struct tnode *children; // linked list of child nodes
+    bool isWord;		// true if tree from root to node is a word 
+    struct tnode **children;	// array of child nodes
 };
 
 typedef struct trie 
 {
-    struct tnode *children; // linked list of child nodes
+    struct tnode **children;	// array of child nodes
 } Trie;
 
 bool createTrie(Trie **dict);
 bool destroyTrie(Trie **dict);
+bool deleteTNode(struct tnode **letters);
 
-//bool insertTNode(Trie **dict, char letter, bool isWord);
+bool insertTNode(struct tnode **letters, char letter, bool isWord);
 //bool insertWord(Trie **dict, char *word);
 //bool loadTrie(Trie **dict);
 
