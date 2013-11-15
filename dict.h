@@ -6,6 +6,7 @@
    Thomas Weng
 */
 
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -27,8 +28,8 @@ bool destroyTrie(Trie **dict);
 bool deleteTNode(struct tnode **letters);
 
 bool insertTNode(struct tnode **letters, char letter, bool isWord);
-//bool insertWord(Trie **dict, char *word);
+bool insertWord(Trie **dict, char *word);
 //bool loadTrie(Trie **dict);
 
-//isPrefixToWord
-//isWord
+bool isPrefixToWord(Trie **dict, char *str);
+bool isWord(Trie **dict, char *str);
