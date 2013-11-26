@@ -8,28 +8,6 @@
 
 #include "dict.h"
 
-// testing 
-int main()
-{
-    // 97 - 122: a - z, 65 - 90: A - Z
-
-    Trie *dict;
-    createTrie(&dict);
-	loadTrie(&dict, "dict.txt");
-	if (isPrefixToWord(&dict, "aard"))
-    {
-		printf("prefix hello worked!\n");
-    }
-	
-    if (isWord(&dict, "aardvark"))
-    {
-		printf("isword works!\n");
-    }
-	
-    destroyTrie(&dict);
-    return true;
-}
-
 bool createTrie(Trie **dict)
 {
     *dict = malloc(sizeof(Trie));
@@ -250,8 +228,29 @@ bool isWord(Trie **dict, char *str)
 	return true;
 }
 
+/*
+// testing 
+int main()
+{
+    // 97 - 122: a - z, 65 - 90: A - Z
 
-
+    Trie *dict;
+    createTrie(&dict);
+	loadTrie(&dict, "dict.txt");
+	if (isPrefixToWord(&dict, "aard"))
+    {
+		printf("prefix hello worked!\n");
+    }
+	
+    if (isWord(&dict, "aardvark"))
+    {
+		printf("isword works!\n");
+    }
+	
+    destroyTrie(&dict);
+    return true;
+}
+*/
 
 
 
