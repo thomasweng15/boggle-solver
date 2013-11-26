@@ -29,7 +29,8 @@ bool deleteTNode(struct tnode **letters);
 
 bool insertTNode(struct tnode **letters, char letter, bool isWord);
 bool insertWord(Trie **dict, char *word);
-//bool loadTrie(Trie **dict);
+bool loadTrie(Trie **dict, char *file);
+char *getLine(FILE *fp);
 
 bool isPrefixToWord(Trie **dict, char *str);
 bool isWord(Trie **dict, char *str);

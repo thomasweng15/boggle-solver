@@ -2,6 +2,5 @@ Boggle Solver
 =============
 
 Next Steps:
-* review hashset implementation
+* stress test the trie data structure
 * finish the main bogglesolver function
-* write a trie data structure
