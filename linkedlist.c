@@ -85,6 +85,16 @@ bool removeNode(list **ls)
         return false;
     }
 
+    // if list only has one element
+    if ((*ls)->head == (*ls)->tail) {
+        free((*ls)->head->word);
+        free((*ls)->head);
+        (*ls)->head = NULL;
+        (*ls)->tail = NULL;
+        return true;
+    }
+
+    // otherwise remove element normally
     for (c = (*ls)->head; c != (*ls)->tail; c = c->next) 
     {
         p = c;

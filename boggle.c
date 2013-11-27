@@ -66,14 +66,19 @@ void solve(char **grid, int x, int y, list **path, hashset **set, trie **dict)
         // add coordinate to hash set
         insertHashVal(set, x, y);
 
-        // call solveboggle in every direction, only one for now for testing
+        // call solveboggle in every direction
         solve(grid, x, y + 1, path, set, dict);
+        solve(grid, x + 1, y + 1, path, set, dict);
+        solve(grid, x, y - 1, path, set, dict);
+        solve(grid, x - 1, y, path, set, dict);
+        solve(grid, x - 1, y - 1, path, set, dict);
 
         // remove coordinate from hash set
         removeHashVal(set, x, y); 
     }
 
     // remove letter from linked list?
+    removeNode(path);
 }
 
 bool initGrid(char ***bptr) 

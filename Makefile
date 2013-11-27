@@ -25,6 +25,3 @@ hashset: hashset.c
 dict: dict.c
 	${CC} ${CFLAGS} -o $@ $^
 
-### fixing the dictionary file
-fixdict: fixdict.c
-	${CC} ${CFLAGS} -o $@ $^

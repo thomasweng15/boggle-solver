@@ -2,5 +2,6 @@ Boggle Solver
 =============
 
 Next Steps:
-* stress test the trie data structure
-* finish the main bogglesolver function
+* choose heuristics for walking through grid
+* add diagonals to the solve() function
+* stress tests
