@@ -22,4 +22,5 @@ bool createHashSet(hashset **hs);
 bool destroyHashSet(hashset **hs);
 
 bool lookUpHashVal(hashset **hs, int x, int y);
-bool updateHashVal(hashset **hs, int x, int y);
+bool insertHashVal(hashset **hs, int x, int y);
+bool removeHashVal(hashset **hs, int x, int y);

@@ -42,7 +42,7 @@ bool lookUpHashVal(hashset **hs, int x, int y)
     return (*hs)->arr[hash(x, y)];
 }
 
-bool updateHashVal(hashset **hs, int x, int y)
+bool insertHashVal(hashset **hs, int x, int y)
 {
     if ((*hs)->arr[hash(x,y)] == false)
     {
@@ -56,11 +56,25 @@ bool updateHashVal(hashset **hs, int x, int y)
     }
 }
 
+bool removehashVal(hashset **hs, int x, int y) 
+{
+    if ((*hs)->arr[hash(x,y)] == true) 
+    {
+        (*hs)->arr[hash(x,y)] = false;
+        return true;
+    }
+    else
+    {
+        fprintf(stderr, "hashset: value already doesn't exist\n");
+        return false;
+    }
+}
+
 // testing
 /*
 int main()
 {
-    HashSet *hs;
+    hashset *hs;
     createHashSet(&hs);
     updateHashVal(&hs, 1, 1);
     if (lookUpHashVal(&hs, 1, 1))
