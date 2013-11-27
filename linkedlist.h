@@ -27,4 +27,5 @@ bool createLinkedList(list **ls);
 bool destroyLinkedList(list **ls);
 
 bool insertNode(list **ls, char letter);
+bool removeNode(list **ls);
 char *getWord(list **ls);

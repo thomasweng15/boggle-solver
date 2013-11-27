@@ -74,20 +74,45 @@ bool insertNode(list **ls, char letter)
     return true;
 }
 
+bool removeNode(list **ls) 
+{
+    struct lnode *c, *p;
+
+    // error if list is empty
+    if (ls == NULL) 
+    {
+        fprintf(stderr, "attempting to delete from empty list\n");
+        return false;
+    }
+
+    for (c = (*ls)->head; c != (*ls)->tail; c = c->next) 
+    {
+        p = c;
+    }    
+
+    free((*ls)->tail->word);
+    free((*ls)->tail);
+    (*ls)->tail = p;
+    (*ls)->tail->next = NULL;
+    return true;
+}
+
 char *getWord(list **ls)
 {
     return (*ls)->tail->word;
 }
 
-// testing
 /*
+// testing
 int main()
 {
-    LinkedList *list;
-    createLinkedList(&list);
-    insertNode(&list, 'a');
-    insertNode(&list, 'h');
-    printf("%s\n", getWord(&list));
-    destroyLinkedList(&list);
+    list *ls;
+    createLinkedList(&ls);
+    insertNode(&ls, 'a');
+    insertNode(&ls, 'h');
+    printf("%s\n", getWord(&ls));
+    removeNode(&ls);
+    printf("%s\n", getWord(&ls));
+    destroyLinkedList(&ls);
 }
 */
