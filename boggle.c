@@ -32,11 +32,11 @@ int main()
     createLinkedList(&path);
     trie *dict;
     createTrie(&dict);
-    loadTrie(&dict, "boggle.txt");
+    loadTrie(&dict, "dict.txt");
     hashset *set;
     createHashSet(&set);
 
-    //solve(&board, 0, 0, &path, &coords, &dict);
+    solve(grid, 0, 0, &path, &set, &dict);
 
     // cleanup
     destroyTrie(&dict);
@@ -64,17 +64,16 @@ void solve(char **grid, int x, int y, list **path, hashset **set, trie **dict)
     if (isPrefixToWord(dict, word)) 
     {
         // add coordinate to hash set
-        //insertHashVal(set, x, y);
+        insertHashVal(set, x, y);
 
         // call solveboggle in every direction, only one for now for testing
-        solve(grid, x + 1, y, path, set, dict);
+        solve(grid, x, y + 1, path, set, dict);
 
         // remove coordinate from hash set
-        //removeHashValue(set, x, y); 
+        removeHashVal(set, x, y); 
     }
 
-    // remove letter from linked list
-    // removeNode(list, grid[x][y]);   
+    // remove letter from linked list?
 }
 
 bool initGrid(char ***bptr) 

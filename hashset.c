@@ -56,7 +56,7 @@ bool insertHashVal(hashset **hs, int x, int y)
     }
 }
 
-bool removehashVal(hashset **hs, int x, int y) 
+bool removeHashVal(hashset **hs, int x, int y) 
 {
     if ((*hs)->arr[hash(x,y)] == true) 
     {

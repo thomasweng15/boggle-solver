@@ -131,9 +131,10 @@ bool loadTrie(trie **dict, char *file)
         return false;
     }
 	
-    while ((line = getLine(fp)) != NULL)  
+    while ((line = getLine(fp)) != '\0')  
     {
 	insertWord(dict, line);	// one word per line
+        free(line);
     }
 
     fclose(fp);
@@ -157,14 +158,14 @@ char *getLine(FILE *fp)
 	    line = realloc(line, size);
 	}
 	line[i++] = c;
-	if (c == '\n' || c == '\r') 		// Break on newline or carriage ret
+	if (c == '\n')		 		// Break on newline
 	{	
             i = i - 1;
 	    break;
 	}
     }
 
-    if ((c == EOF || c == '\n' || c == '\r') && i == 0)	// Check immediate EOF
+    if ((c == EOF || c == '\n') && i == 0)	// Check immediate EOF
     {	
  	free(line);
 	return NULL;
@@ -220,13 +221,13 @@ bool isWord(trie **dict, char *str)
 	    return false; 
 	}
 	// if last character and isWord, return true
-	else if (i == strlen(str) - 1 && curr[letter - 97]->isWord)
+        else if (curr[letter - 97]->isWord && (i == strlen(str) - 1))
 	{
 	    return true;
 	}
 	curr = curr[letter - 97]->children;
     }
-    return true;
+    return false;
 }
 
 /*
