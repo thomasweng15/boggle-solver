@@ -21,28 +21,28 @@ int hash(int x, int y)
     return WIDTH*x + y; // note: only works for size < 10
 } 
 
-bool createHashSet(HashSet **hs)
+bool createHashSet(hashset **hs)
 {
-    *hs = malloc(sizeof(struct hashset));
+    *hs = malloc(sizeof(hashset));
     if (*hs == NULL) return false;
     (*hs)->arr = calloc(WIDTH*WIDTH, sizeof(bool));
     if ((*hs)->arr == NULL) return false;
     return true;
 }
 
-bool destroyHashSet(HashSet **hs)
+bool destroyHashSet(hashset **hs)
 {
     free((*hs)->arr);
     free(*hs);
     return true;
 }
 
-bool lookUpHashVal(HashSet **hs, int x, int y)
+bool lookUpHashVal(hashset **hs, int x, int y)
 {
     return (*hs)->arr[hash(x, y)];
 }
 
-bool updateHashVal(HashSet **hs, int x, int y)
+bool updateHashVal(hashset **hs, int x, int y)
 {
     if ((*hs)->arr[hash(x,y)] == false)
     {

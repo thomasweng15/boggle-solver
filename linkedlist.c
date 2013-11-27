@@ -8,19 +8,19 @@
 
 #include "linkedlist.h"
 
-bool createLinkedList(LinkedList **list) 
+bool createLinkedList(list **ls) 
 {
-    *list = malloc(sizeof(LinkedList));
-    if (*list == NULL) return false;
-    (*list)->head = NULL;
-    (*list)->tail = NULL;
+    *ls = malloc(sizeof(list));
+    if (*ls == NULL) return false;
+    (*ls)->head = NULL;
+    (*ls)->tail = NULL;
     return true;
 }
 
-bool destroyLinkedList(LinkedList **list)
+bool destroyLinkedList(list **ls)
 {
     struct lnode *curr, *prev;
-    curr = (*list)->head;
+    curr = (*ls)->head;
     while (curr != NULL)
     {
 	free(curr->word);
@@ -28,12 +28,12 @@ bool destroyLinkedList(LinkedList **list)
 	curr = curr->next;	
 	free(prev);
     }
-    free(*list);
-    *list = NULL;
+    free(*ls);
+    *ls = NULL;
     return true;
 }
 
-bool insertNode(LinkedList **list, char letter)
+bool insertNode(list **ls, char letter)
 {
     // create new lnode
     struct lnode *new;
@@ -42,7 +42,7 @@ bool insertNode(LinkedList **list, char letter)
     new->next = NULL;
 
     // make word for lnode
-    if ((*list)->tail == NULL)
+    if ((*ls)->tail == NULL)
     {
 	new->word = malloc(sizeof(char) + 1);
 	if (new->word == NULL) return false;
@@ -51,32 +51,32 @@ bool insertNode(LinkedList **list, char letter)
     }
     else
     {
-	int oldLen = strlen(((*list)->tail)->word);
+	int oldLen = strlen(((*ls)->tail)->word);
 	new->word = malloc(oldLen + sizeof(char) + 1);
 	if (new->word == NULL) return false;
-	strncpy(new->word, ((*list)->tail)->word, oldLen);
+	strncpy(new->word, ((*ls)->tail)->word, oldLen);
 	new->word[oldLen] = letter;
 	new->word[oldLen + 1] = '\0';
     }
 
     // insert new node into list
-    if ((*list)->tail != NULL) 
+    if ((*ls)->tail != NULL) 
     {
-	((*list)->tail)->next = new;
+	((*ls)->tail)->next = new;
     }
     // if tail node is NULL, we are inserting into an empty list
     else
     {
-	(*list)->head = new;
+	(*ls)->head = new;
     }
-    (*list)->tail = new;
+    (*ls)->tail = new;
     
     return true;
 }
 
-char *getWord(LinkedList **list)
+char *getWord(list **ls)
 {
-    return (*list)->tail->word;
+    return (*ls)->tail->word;
 }
 
 // testing

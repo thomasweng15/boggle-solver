@@ -8,9 +8,9 @@
 
 #include "dict.h"
 
-bool createTrie(Trie **dict)
+bool createTrie(trie **dict)
 {
-    *dict = malloc(sizeof(Trie));
+    *dict = malloc(sizeof(trie));
     if (*dict == NULL) return false;
     (*dict)->children = malloc(sizeof(struct node *) * 26);
     if ((*dict)->children == NULL)
@@ -25,7 +25,7 @@ bool createTrie(Trie **dict)
     return true;
 }
 
-bool destroyTrie(Trie **dict)
+bool destroyTrie(trie **dict)
 {
     deleteTNode((*dict)->children);
     free(*dict);
@@ -80,7 +80,7 @@ bool insertTNode(struct tnode **letters, char letter, bool isWord)
     return true;
 }
 
-bool insertWord(Trie **dict, char *word)
+bool insertWord(trie **dict, char *word)
 {
     // loop through letters until last letter in word
     // walk though dict as we loop
@@ -121,7 +121,7 @@ bool insertWord(Trie **dict, char *word)
     return true;
 }
 
-bool loadTrie(Trie **dict, char *file)
+bool loadTrie(trie **dict, char *file)
 {
     char *line;
     FILE *fp;
@@ -136,6 +136,7 @@ bool loadTrie(Trie **dict, char *file)
 	insertWord(dict, line);	// one word per line
     }
 
+    fclose(fp);
     return true;
 }
 
@@ -175,7 +176,7 @@ char *getLine(FILE *fp)
     return (line);
 }
 
-bool isPrefixToWord(Trie **dict, char *str)
+bool isPrefixToWord(trie **dict, char *str)
 {
     char letter;
     struct tnode **curr = (*dict)->children;
@@ -202,7 +203,7 @@ bool isPrefixToWord(Trie **dict, char *str)
     return true;
 }
 
-bool isWord(Trie **dict, char *str)
+bool isWord(trie **dict, char *str)
 {
     char letter;
     struct tnode **curr = (*dict)->children;

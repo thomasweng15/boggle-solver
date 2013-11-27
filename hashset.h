@@ -10,16 +10,16 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-typedef struct hashset
+typedef struct
 {
     bool *arr;
-} HashSet;
+} hashset;
 
 bool updateSize(int width);
 int hash(int x, int y);
 
-bool createHashSet(HashSet **hs);
-bool destroyHashSet(HashSet **hs);
+bool createHashSet(hashset **hs);
+bool destroyHashSet(hashset **hs);
 
-bool lookUpHashVal(HashSet **hs, int x, int y);
-bool updateHashVal(HashSet **hs, int x, int y);
+bool lookUpHashVal(hashset **hs, int x, int y);
+bool updateHashVal(hashset **hs, int x, int y);

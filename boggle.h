@@ -14,7 +14,7 @@
 #include "hashset.h"
 #include "dict.h"
 
-bool initBoard(char ***bptr);
-bool readBoard(char ***bptr);
-bool freeBoard(char ***bptr);
-void solveBoggle(LinkedList **LL, int x, int y, HashSet **HS);
+bool initGrid(char ***bptr);
+bool readGrid(char ***bptr);
+bool freeGrid(char ***bptr);
+void solve(char **grid, int x, int y, list **path, hashset **set, trie **dict);

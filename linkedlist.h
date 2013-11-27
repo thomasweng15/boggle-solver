@@ -17,14 +17,14 @@ struct lnode
     struct lnode *next;
 };
 
-typedef struct linkedlist
+typedef struct 
 {
     struct lnode *head;
     struct lnode *tail;
-} LinkedList;
+} list;
 
-bool createLinkedList(LinkedList **list);
-bool destroyLinkedList(LinkedList **list);
+bool createLinkedList(list **ls);
+bool destroyLinkedList(list **ls);
 
-bool insertNode(LinkedList **list, char letter);
-char *getWord(LinkedList **list);
+bool insertNode(list **ls, char letter);
+char *getWord(list **ls);

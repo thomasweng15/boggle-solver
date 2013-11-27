@@ -18,19 +18,19 @@ struct tnode
     struct tnode **children;	// array of child nodes
 };
 
-typedef struct trie 
+typedef struct 
 {
     struct tnode **children;	// array of child nodes
-} Trie;
+} trie;
 
-bool createTrie(Trie **dict);
-bool destroyTrie(Trie **dict);
+bool createTrie(trie **dict);
+bool destroyTrie(trie **dict);
 bool deleteTNode(struct tnode **letters);
 
 bool insertTNode(struct tnode **letters, char letter, bool isWord);
-bool insertWord(Trie **dict, char *word);
-bool loadTrie(Trie **dict, char *file);
+bool insertWord(trie **dict, char *word);
+bool loadTrie(trie **dict, char *file);
 char *getLine(FILE *fp);
 
-bool isPrefixToWord(Trie **dict, char *str);
-bool isWord(Trie **dict, char *str);
+bool isPrefixToWord(trie **dict, char *str);
+bool isWord(trie **dict, char *str);

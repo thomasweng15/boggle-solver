@@ -8,71 +8,104 @@
 
 #include "boggle.h"
 
-int SIZE = 4; // size of board
+int SIZE = 4; // size of grid
 
 int main() 
 {
-    // initialize board
-    char **board;
-    if (!initBoard(&board)) 
+    // initialize grid
+    char **grid;
+    if (!initGrid(&grid)) 
     {
-	fprintf(stderr, "error initializing board\n");
+	fprintf(stderr, "error initializing grid\n");
 	exit(EXIT_FAILURE);
     }
 
-    // read in board 
-    if (!readBoard(&board))
+    // read in grid
+    if (!readGrid(&grid))
     {
-	fprintf(stderr, "error reading in board\n");
+	fprintf(stderr, "error reading in grid\n");
 	exit(EXIT_FAILURE);
     }
 
     // initialize data structures
-    LinkedList *list;
-    createLinkedList(&list);
-    Trie *dict;
+    list *path;
+    createLinkedList(&path);
+    trie *dict;
     createTrie(&dict);
-    HashSet *visited;
-    createHashSet(&visited);
+    loadTrie(&dict, "boggle.txt");
+    hashset *set;
+    createHashSet(&set);
 
-    //solveBoggle(&LL, 0, 0, &visited);
+    //solve(&board, 0, 0, &path, &coords, &dict);
 
     // cleanup
     destroyTrie(&dict);
-    destroyLinkedList(&list); 
-    destroyHashSet(&visited);
-    freeBoard(&board);
+    destroyLinkedList(&path); 
+    destroyHashSet(&set);
+    freeGrid(&grid);
 }
 
-bool initBoard(char ***bptr) 
+void solve(char **grid, int x, int y, list **path, hashset **set, trie **dict)
 {
-    char **board = *bptr;
+    // if coordinates are out of range, stop
+    if (x < 0 || y < 0 || x > SIZE - 1 || y > SIZE - 1) return;
+
+    // if coordinates are already in hash set, stop
+    if (lookUpHashVal(set, x, y)) return;
+
+    // insert letter at position into linked list
+    insertNode(path, grid[x][y]);
+
+    // If word, print out
+    char *word = getWord(path);
+    if (isWord(dict, word)) printf("%s\n", word);
+
+    // if prefix to word, add coordinate and continue
+    if (isPrefixToWord(dict, word)) 
+    {
+        // add coordinate to hash set
+        //insertHashVal(set, x, y);
+
+        // call solveboggle in every direction, only one for now for testing
+        solve(grid, x + 1, y, path, set, dict);
+
+        // remove coordinate from hash set
+        //removeHashValue(set, x, y); 
+    }
+
+    // remove letter from linked list
+    // removeNode(list, grid[x][y]);   
+}
+
+bool initGrid(char ***bptr) 
+{
+    char **grid = *bptr;
 
     // initialize char * array
-    board = malloc(SIZE * sizeof(char *));
-    if (board == NULL)
+    grid = malloc(SIZE * sizeof(char *));
+    if (grid == NULL)
 	return false;
 
     // initialize char array for each char * pointer 
     for (int i = 0; i < SIZE; i++) 
     {
-	board[i] = malloc(SIZE * sizeof(char));
-	if (board[i] == NULL)
+	grid[i] = malloc(SIZE * sizeof(char));
+	if (grid[i] == NULL)
 	    return false;
 
 	for (int j = 0; j < SIZE; j++) 
 	{
-	    board[i][j] = ' ';
+	    grid[i][j] = ' ';
 	}
     }
 
-    *bptr = board;
+    *bptr = grid;
     return true;
 }
 
-bool readBoard(char ***bptr)
+bool readGrid(char ***bptr)
 {
-    char **board = *bptr;
+    char **grid = *bptr;
 
     // read from stdin and store characters in board until EOF
     char c;
@@ -91,57 +124,30 @@ bool readBoard(char ***bptr)
 	}
 	else 
 	{
-	    board[row][col] = c;
+	    grid[row][col] = c;
 	    col += 1;
 	}
     }
 
-    *bptr = board;
+    *bptr = grid;
     return true;         
 }
 
-bool freeBoard(char ***bptr)
+bool freeGrid(char ***bptr)
 {
-    char **board = *bptr;
+    char **grid = *bptr;
 
     // free every char * array in the char ** array
     for (int i = 0; i < SIZE; i++)
     {
-	free(board[i]);
-	board[i] = NULL;
+	free(grid[i]);
+	grid[i] = NULL;
     }
 
     // free the char ** array
-    free(board);
-    board = NULL;
-    *bptr = board;
+    free(grid);
+    grid = NULL;
+    *bptr = grid;
     return true;
 }
 
-/*
-void solveBoggle(LinkedList **list, int x, int y, HashSet **visited)
-{
-    // if coordinates are out of range, stop
-    if (x < 0 || y < 0 || x > 4 || y > 4)
-    {
-    	return;
-    }
-
-    // if coordinates are already in HashSet, stop
-    if (lookUpHashValue(visited, hashFunc(x, y)))
-    {
-    	return;
-    }
-
-    // insert letter at position into LinkedList
-    insertNode(list, board[x][y]);
-
-    // if new word is not a word or prefix to word, stop
-    char *word = getWord(list);
-    //
-    // otherwise, add coordinates to hashset
-    insertHashValue(visited, x, y);
-
-    // call solveboard in every direction (except nonvalid?)
-}
-*/
