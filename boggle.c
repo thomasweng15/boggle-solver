@@ -8,109 +8,115 @@
 
 #include "boggle.h"
 
-int SIZE = 4; // size of grid
+int Size = 4; // size of grid
+char **Grid; // boggle grid
 
-int main() 
+int main(int argc, char *argv[]) 
 {
+    // TODO check argument for board size
+
     // initialize grid
-    char **grid;
-    if (!initGrid(&grid)) 
+    if (!initGrid()) 
     {
 	fprintf(stderr, "error initializing grid\n");
 	exit(EXIT_FAILURE);
     }
 
     // read in grid
-    if (!readGrid(&grid))
+    if (!readGrid())
     {
 	fprintf(stderr, "error reading in grid\n");
 	exit(EXIT_FAILURE);
     }
 
     // initialize data structures
-    list *path;
-    createLinkedList(&path);
     trie *dict;
     createTrie(&dict);
     loadTrie(&dict, "dict.txt");
+    
+    list *path;
+    createLinkedList(&path);
     hashset *set;
     createHashSet(&set);
+    trie *dups;
+    createTrie(&dups);
 
-    solve(grid, 0, 0, &path, &set, &dict);
+    // call solve for every location on grid
+    for (int i = 0; i < Size; i++) {
+        for (int j = 0; j < Size; j++) {
+            solve(i, j, &path, &set, &dict, &dups);
+        }
+    }
 
     // cleanup
+    destroyTrie(&dups);
     destroyTrie(&dict);
     destroyLinkedList(&path); 
     destroyHashSet(&set);
-    freeGrid(&grid);
+    freeGrid();
 }
 
-void solve(char **grid, int x, int y, list **path, hashset **set, trie **dict)
+void solve(int x, int y, list **path, hashset **set, trie **dict, trie **dups)
 {
     // if coordinates are out of range, stop
-    if (x < 0 || y < 0 || x > SIZE - 1 || y > SIZE - 1) return;
+    if (x < 0 || y < 0 || x > Size - 1 || y > Size - 1) return;
 
     // if coordinates are already in hash set, stop
     if (lookUpHashVal(set, x, y)) return;
 
-    // insert letter at position into linked list
-    insertNode(path, grid[x][y]);
+    insertNode(path, Grid[x][y]);
 
-    // If word, print out
+    // TODO store words in a separate trie to remove duplicates
     char *word = getWord(path);
-    if (isWord(dict, word)) printf("%s\n", word);
+    if (isWord(dict, word) && !isWord(dups, word)) 
+    {
+        printf("%s\n", word);
+        insertWord(dups, word);
+    }
 
-    // if prefix to word, add coordinate and continue
     if (isPrefixToWord(dict, word)) 
     {
-        // add coordinate to hash set
         insertHashVal(set, x, y);
 
         // call solveboggle in every direction
-        solve(grid, x, y + 1, path, set, dict);
-        solve(grid, x + 1, y + 1, path, set, dict);
-        solve(grid, x, y - 1, path, set, dict);
-        solve(grid, x - 1, y, path, set, dict);
-        solve(grid, x - 1, y - 1, path, set, dict);
+        // TODO add diagonals
+        solve(x, y + 1, path, set, dict, dups);
+        solve(x + 1, y + 1, path, set, dict, dups);
+        solve(x, y - 1, path, set, dict, dups);
+        solve(x - 1, y, path, set, dict, dups);
+        solve(x - 1, y - 1, path, set, dict, dups);
 
-        // remove coordinate from hash set
         removeHashVal(set, x, y); 
     }
 
-    // remove letter from linked list?
     removeNode(path);
 }
 
-bool initGrid(char ***bptr) 
+bool initGrid() 
 {
-    char **grid = *bptr;
-
     // initialize char * array
-    grid = malloc(SIZE * sizeof(char *));
-    if (grid == NULL)
+    Grid = malloc(Size * sizeof(char *));
+    if (Grid == NULL)
 	return false;
 
     // initialize char array for each char * pointer 
-    for (int i = 0; i < SIZE; i++) 
+    for (int i = 0; i < Size; i++) 
     {
-	grid[i] = malloc(SIZE * sizeof(char));
-	if (grid[i] == NULL)
+	Grid[i] = malloc(Size * sizeof(char));
+	if (Grid[i] == NULL)
 	    return false;
 
-	for (int j = 0; j < SIZE; j++) 
+	for (int j = 0; j < Size; j++) 
 	{
-	    grid[i][j] = ' ';
+	    Grid[i][j] = ' ';
 	}
     }
 
-    *bptr = grid;
     return true;
 }
 
-bool readGrid(char ***bptr)
+bool readGrid()
 {
-    char **grid = *bptr;
-
     // read from stdin and store characters in board until EOF
     char c;
     int row = 0;
@@ -122,36 +128,32 @@ bool readGrid(char ***bptr)
 	    row += 1;
 	    col = 0;
 	}
-	else if (row == SIZE || col == SIZE)
+	else if (row == Size || col == Size)
 	{
 	    return false;
 	}
 	else 
 	{
-	    grid[row][col] = c;
+	    Grid[row][col] = c;
 	    col += 1;
 	}
     }
 
-    *bptr = grid;
     return true;         
 }
 
 bool freeGrid(char ***bptr)
 {
-    char **grid = *bptr;
-
     // free every char * array in the char ** array
-    for (int i = 0; i < SIZE; i++)
+    for (int i = 0; i < Size; i++)
     {
-	free(grid[i]);
-	grid[i] = NULL;
+	free(Grid[i]);
+	Grid[i] = NULL;
     }
 
     // free the char ** array
-    free(grid);
-    grid = NULL;
-    *bptr = grid;
+    free(Grid);
+    Grid = NULL;
     return true;
 }
 

@@ -14,7 +14,7 @@
 #include "hashset.h"
 #include "dict.h"
 
-bool initGrid(char ***bptr);
-bool readGrid(char ***bptr);
-bool freeGrid(char ***bptr);
-void solve(char **grid, int x, int y, list **path, hashset **set, trie **dict);
+bool initGrid();
+bool readGrid();
+bool freeGrid();
+void solve(int x, int y, list **path, hashset **set, trie **dict, trie **dups);
