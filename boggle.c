@@ -10,6 +10,7 @@
 
 int Size = 4; // size of grid
 char **Grid; // boggle grid
+trie *Dict;
 
 int main(int argc, char *argv[]) 
 {
@@ -30,9 +31,8 @@ int main(int argc, char *argv[])
     }
 
     // initialize data structures
-    trie *dict;
-    createTrie(&dict);
-    loadTrie(&dict, "dict.txt");
+    createTrie(&Dict);
+    loadTrie(&Dict, "dict.txt");
     
     list *path;
     createLinkedList(&path);
@@ -44,19 +44,19 @@ int main(int argc, char *argv[])
     // call solve for every location on grid
     for (int i = 0; i < Size; i++) {
         for (int j = 0; j < Size; j++) {
-            solve(i, j, &path, &set, &dict, &dups);
+            solve(i, j, &path, &set, &dups);
         }
     }
 
     // cleanup
     destroyTrie(&dups);
-    destroyTrie(&dict);
+    destroyTrie(&Dict);
     destroyLinkedList(&path); 
     destroyHashSet(&set);
     freeGrid();
 }
 
-void solve(int x, int y, list **path, hashset **set, trie **dict, trie **dups)
+void solve(int x, int y, list **path, hashset **set, trie **dups)
 {
     // if coordinates are out of range, stop
     if (x < 0 || y < 0 || x > Size - 1 || y > Size - 1) return;
@@ -66,25 +66,26 @@ void solve(int x, int y, list **path, hashset **set, trie **dict, trie **dups)
 
     insertNode(path, Grid[x][y]);
 
-    // TODO store words in a separate trie to remove duplicates
     char *word = getWord(path);
-    if (isWord(dict, word) && !isWord(dups, word)) 
+    if (isWord(&Dict, word) && !isWord(dups, word)) 
     {
         printf("%s\n", word);
         insertWord(dups, word);
     }
 
-    if (isPrefixToWord(dict, word)) 
+    if (isPrefixToWord(&Dict, word)) 
     {
         insertHashVal(set, x, y);
 
         // call solveboggle in every direction
-        // TODO add diagonals
-        solve(x, y + 1, path, set, dict, dups);
-        solve(x + 1, y + 1, path, set, dict, dups);
-        solve(x, y - 1, path, set, dict, dups);
-        solve(x - 1, y, path, set, dict, dups);
-        solve(x - 1, y - 1, path, set, dict, dups);
+        solve(x + 1, y, path, set, dups);
+        solve(x - 1, y, path, set, dups); 
+        solve(x, y + 1, path, set, dups);
+        solve(x, y - 1, path, set, dups);
+        solve(x + 1, y + 1, path, set, dups);
+        solve(x + 1, y - 1, path, set, dups);
+        solve(x - 1, y + 1, path, set, dups);
+        solve(x - 1, y - 1, path, set, dups); 
 
         removeHashVal(set, x, y); 
     }

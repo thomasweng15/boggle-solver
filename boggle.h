@@ -17,4 +17,4 @@
 bool initGrid();
 bool readGrid();
 bool freeGrid();
-void solve(int x, int y, list **path, hashset **set, trie **dict, trie **dups);
+void solve(int x, int y, list **path, hashset **set, trie **dups);
