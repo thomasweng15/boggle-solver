@@ -4,16 +4,17 @@ Thomas Weng
 
 Date	Time	Spent	Work completed
 ----	----	-----	--------------
-09/25	13:00	0.5		Initialized repository, wrote Makefile, scaffolded
-11/08	19:00	1.0		initBoard() and readBoard() 
-						took longer than expected because of 2D array syntax.
-				2.5		Fixed style, started trie, and fixed freeing issue.
-11/09	13:30	1.0		Reviewed linkedlist implementation
-11/10	13:30	0.5		Reviewed hashset implementation 
-11/15	14:00	2.0		Worked on dict implementation
-11/26	10:00	2.0		Worked on dict implementation
-						Got bogged down in tricky carriage return bug
+09/25	13:00	0.5	Initialized repository, wrote Makefile, scaffolded
+11/08	19:00	1.0	initBoard() and readBoard()
+			took longer than expected because of 2D array syntax.
+		2.5	Fixed style, started trie, and fixed freeing issue.
+11/09	13:30	1.0	Reviewed linkedlist implementation
+11/10	13:30	0.5	Reviewed hashset implementation 
+11/15	14:00	2.0	Worked on dict implementation
+11/26	10:00	2.0	Worked on dict implementation
+			Got bogged down in tricky carriage return bug
+11/30	19:30	1.0	Removed two letter words or less from dictionary file
 		-----
-		9.5	Total time spent
+		10.5	Total time spent
 
 

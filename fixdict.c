@@ -8,21 +8,21 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include "dict.h"
 
 int main() {
-    FILE *original;
-    FILE *new;
-    char c;
+    FILE *original, *new;
+    char *line;
 
     original = fopen("dict1.txt", "r");
     new = fopen("dict.txt", "w");
     
-    while ((c = getc(original)) != EOF) {
-        if (c == '\r') {
-            ;
-        } else {
-            putc(c, new);
+    while ((line = getLine(original)) != NULL) {
+        if (strlen(line) > 3) {
+            fprintf(new, line);
+            fprintf(new, "\n");
         }
+        free(line);
     } 
 
     fclose(original);
