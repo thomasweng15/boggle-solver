@@ -16,7 +16,8 @@ Date	Time	Spent	Work completed
 11/27 	12:00	2.0	Removed carriaged returns from dictionary file
      			Put together minimal version of solve() function
   			Fixed errors in data structures
+11/30	19:30	1.0	Removed two letter words or less from dictionary file
 		-----
-		11.5	Total time spent
+		12.5	Total time spent
 
 
