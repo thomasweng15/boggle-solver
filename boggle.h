@@ -14,6 +14,7 @@
 #include "hashset.h"
 #include "dict.h"
 
+bool chkArgs(int argc, char *argv[]);
 bool initGrid();
 bool readGrid();
 bool freeGrid();

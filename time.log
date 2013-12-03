@@ -18,7 +18,8 @@ Date	Time	Spent	Work completed
   			Fixed errors in data structures
 11/30	19:30	1.5	Removed two letter words or less from dictionary file
 			Testing boggle solver against players online
+12/2	22:00	0.5	Command line argument for variable grid size	
 		-----
-		13.0	Total time spent
+		13.5	Total time spent
 
 

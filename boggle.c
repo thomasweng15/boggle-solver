@@ -14,7 +14,10 @@ trie *Dict;
 
 int main(int argc, char *argv[]) 
 {
-    // TODO check argument for board size
+    // check args for board size
+    if (!chkArgs(argc, argv)) {
+        exit(EXIT_FAILURE);
+    }
 
     // initialize grid
     if (!initGrid()) 
@@ -91,6 +94,25 @@ void solve(int x, int y, list **path, hashset **set, trie **dups)
     }
 
     removeNode(path);
+}
+
+bool chkArgs(int argc, char *argv[]) {
+    int newSize;
+    if (argc == 3 && strcmp(argv[1], "-s") == 0) {
+        newSize = atoi(argv[2]);
+        if (newSize > 0 && newSize < 10) {
+            Size = newSize;
+        } else {
+            fprintf(stderr, "error: size must be between 0 and 10\n");
+            return false;
+        }      
+    } else if (argc == 1) {
+        ;
+    } else {
+        fprintf(stderr, "usage: boggle [-s SIZE]\n");
+        return false;
+    }
+    return true;
 }
 
 bool initGrid() 
