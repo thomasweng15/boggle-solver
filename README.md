@@ -15,9 +15,6 @@ Demo
 ---
 I tested the program on grids generated on [http://weboggle.info](http://weboggle.info).
 
-<video controls="controls">
-  <source type="video/mp4" src="demo.mp4"></source>
-  <p>Your browser does not support the video element.</p>
-</video>
+<img src="demo.gif" />
 
 
