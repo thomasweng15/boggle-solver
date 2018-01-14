@@ -15,6 +15,9 @@ Demo
 ---
 I tested the program on grids generated on [http://weboggle.info](http://weboggle.info).
 
-<div style="width:100%;height:0;padding-bottom:63%;position:relative;"><iframe src="https://giphy.com/embed/3ohjUVRgcNmdcPd6i4" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/3ohjUVRgcNmdcPd6i4">via GIPHY</a></p>
+<video controls="controls">
+  <source type="video/mp4" src="demo.mp4"></source>
+  <p>Your browser does not support the video element.</p>
+</video>
 
 
